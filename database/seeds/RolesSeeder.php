@@ -22,8 +22,8 @@ class RolesSeeder extends Seeder
             ]
         ]);
         $reader = Role::create([
-            'name' => 'Editor',
-            'slug' => 'editor',
+            'name' => 'Reader',
+            'slug' => 'reader',
             'permissions' => [
                 'comment-post' => true,
             ]
