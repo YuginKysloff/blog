@@ -3,8 +3,8 @@
 Auth::routes();
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+})->name('home');
 
 Route::group(['prefix' => 'blog'], function () {
     Route::get('/', 'PostController@index')
