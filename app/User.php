@@ -32,6 +32,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'role_users');
     }
 
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
+
     /**
      * Checks if User has access to $permissions.
      */

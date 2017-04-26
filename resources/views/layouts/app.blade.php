@@ -20,31 +20,53 @@
 
     </head>
 
-    {{--Tag body in the pages view--}}
-
     @section('nav')
-        <nav class="main-nav main-nav--content page-wrap__blog-nav">
-            <a href="/">
-                <div id="main-nav__logo"></div>
-            </a>
-            <span class="main-nav__h1">Sergey Gromov</span>
-            <span class="main-nav__h2">Front-end developer</span>
+        <body>
+        <div class="page-wrap">
+            <nav class="main-nav main-nav--content page-wrap__blog-nav">
+                <a href="/">
+                    <div id="main-nav__logo"></div>
+                </a>
+                <span class="main-nav__h1">Sergey Gromov</span>
+                <span class="main-nav__h2">Front-end developer</span>
 
-            <a href="blog.html" class="main-nav__item">blog</a>
-            <a href="portfolio.html" class="main-nav__item">portfolio</a>
-            <a href="https://vk.com/reskwer" class="main-nav__item">
-                <svg role="img" class="main-nav__item-icon">
-                    <use xlink:href="#vk"></use>
-                </svg>
-                <span>reskwer</span>
-            </a>
-            <a href="https://telegram.me/reskwer" class="main-nav__item">
-                <svg role="img" class="main-nav__item-icon">
-                    <use xlink:href="#telegram"></use>
-                </svg>
-                <span>reskwer</span>
-            </a>
-        </nav>
+                <a href="{{ route('list_posts') }}" class="main-nav__item">blog</a>
+                <a href="portfolio.html" class="main-nav__item">portfolio</a>
+                <a href="https://vk.com/reskwer" class="main-nav__item">
+                    <svg role="img" class="main-nav__item-icon">
+                        <use xlink:href="#vk"></use>
+                    </svg>
+                    <span>reskwer</span>
+                </a>
+                <a href="https://telegram.me/reskwer" class="main-nav__item">
+                    <svg role="img" class="main-nav__item-icon">
+                        <use xlink:href="#telegram"></use>
+                    </svg>
+                    <span>reskwer</span>
+                </a>
+
+                {{--Admin links--}}
+                @can('create-post')
+                    <a href="{{ route('create_post') }}" class="main-nav__item">Новая статья</a>
+                @endcan
+
+                @can('update-post')
+                    <a href="{{ route('list_drafts') }}" class="main-nav__item">Черновики</a>
+                @endcan
+
+            <!-- Authentication Links -->
+                @if (Auth::guest())
+                    <a href="{{ route('login') }}" class="main-nav__item">Вход</a>
+                    <a href="{{ route('register') }}" class="main-nav__item">Регистрация</a>
+                @else
+                    <a href="{{ route('logout') }}" class="main-nav__item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Выход
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                @endif
+            </nav>
     @show
 
     @yield('content')
@@ -72,96 +94,3 @@
     @show
     </body>
 </html>
-
-
-
-
-
-{{--<!DOCTYPE html>--}}
-{{--<html lang="{{ config('app.locale') }}">--}}
-{{--<head>--}}
-    {{--<meta charset="utf-8">--}}
-    {{--<meta http-equiv="X-UA-Compatible" content="IE=edge">--}}
-    {{--<meta name="viewport" content="width=device-width, initial-scale=1">--}}
-
-    {{--<!-- CSRF Token -->--}}
-    {{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
-
-    {{--<title>{{ config('app.name', 'Laravel') }}</title>--}}
-
-    {{--<!-- Styles -->--}}
-    {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
-
-    {{--<!-- Scripts -->--}}
-    {{--<script>--}}
-        {{--window.Laravel = {!! json_encode([--}}
-            {{--'csrfToken' => csrf_token(),--}}
-        {{--]) !!};--}}
-    {{--</script>--}}
-{{--</head>--}}
-{{--<body>--}}
-    {{--<div id="app">--}}
-        {{--<nav class="navbar navbar-default navbar-static-top">--}}
-            {{--<div class="container">--}}
-                {{--<div class="navbar-header">--}}
-
-                    {{--<!-- Collapsed Hamburger -->--}}
-                    {{--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">--}}
-                        {{--<span class="sr-only">Toggle Navigation</span>--}}
-                        {{--<span class="icon-bar"></span>--}}
-                        {{--<span class="icon-bar"></span>--}}
-                        {{--<span class="icon-bar"></span>--}}
-                    {{--</button>--}}
-
-                    {{--<!-- Branding Image -->--}}
-                    {{--<a class="navbar-brand" href="{{ url('/') }}">--}}
-                        {{--{{ config('app.name', 'Laravel') }}--}}
-                    {{--</a>--}}
-                {{--</div>--}}
-
-                {{--<div class="collapse navbar-collapse" id="app-navbar-collapse">--}}
-                    {{--<!-- Left Side Of Navbar -->--}}
-                    {{--<ul class="nav navbar-nav">--}}
-                        {{--&nbsp;--}}
-                    {{--</ul>--}}
-
-                    {{--<!-- Right Side Of Navbar -->--}}
-                    {{--<ul class="nav navbar-nav navbar-right">--}}
-                        {{--<!-- Authentication Links -->--}}
-                        {{--@if (Auth::guest())--}}
-                            {{--<li><a href="{{ route('login') }}">Login</a></li>--}}
-                            {{--<li><a href="{{ route('register') }}">Register</a></li>--}}
-                        {{--@else--}}
-                            {{--<li class="dropdown">--}}
-                                {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">--}}
-                                    {{--{{ Auth::user()->name }} <span class="caret"></span>--}}
-                                {{--</a>--}}
-
-                                {{--<ul class="dropdown-menu" role="menu">--}}
-                                    {{--<li>--}}
-                                        {{--<a href="{{ route('list_drafts') }}">Drafts</a>--}}
-                                        {{--<a href="{{ route('logout') }}"--}}
-                                            {{--onclick="event.preventDefault();--}}
-                                                     {{--document.getElementById('logout-form').submit();">--}}
-                                            {{--Logout--}}
-                                        {{--</a>--}}
-
-                                        {{--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
-                                            {{--{{ csrf_field() }}--}}
-                                        {{--</form>--}}
-                                    {{--</li>--}}
-                                {{--</ul>--}}
-                            {{--</li>--}}
-                        {{--@endif--}}
-                    {{--</ul>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</nav>--}}
-
-        {{--@yield('content')--}}
-    {{--</div>--}}
-
-    {{--<!-- Scripts -->--}}
-    {{--<script src="{{ asset('js/app.js') }}"></script>--}}
-{{--</body>--}}
-{{--</html>--}}

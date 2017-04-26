@@ -41,15 +41,21 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Update
+                                        Сохранить
                                     </button>
                                     @can('publish-post')
-                                        <a href="{{ route('publish_post', ['post' => $post->id]) }}" class="btn btn-primary">
-                                            Publish
-                                        </a>
+                                        @if($post->published == 0)
+                                            <a href="{{ route('publish_post', ['post' => $post->id]) }}" class="btn btn-primary">
+                                                Опубликовать
+                                            </a>
+                                        @else
+                                            <a href="{{ route('unpublish_post', ['post' => $post->id]) }}" class="btn btn-primary">
+                                                Убрать с публикации
+                                            </a>
+                                        @endif
                                     @endcan
                                     <a href="{{ route('list_posts') }}" class="btn btn-primary">
-                                        Cancel
+                                        Отменить
                                     </a>
                                 </div>
                             </div>

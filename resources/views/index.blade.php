@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
-<body class="page-index">
-
 @section('nav')
+    <body class="page-index">
     <nav class="main-nav">
         <h1 class="main-nav__h1">Sergey Gromov</h1>
         <h2 class="main-nav__h2">Front-end developer</h2>
@@ -21,6 +20,19 @@
             </svg>
             <span>reskwer</span>
         </a>
+
+        <!-- Authentication Links -->
+        @if (Auth::guest())
+            <a href="{{ route('login') }}" class="main-nav__item">Вход</a>
+            <a href="{{ route('register') }}" class="main-nav__item">Регистрация</a>
+        @else
+            <a href="{{ route('logout') }}" class="main-nav__item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                Выход
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+        @endif
     </nav>
 @endsection
 
