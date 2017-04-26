@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+        <h1 class="h1 page-portfolio__h1">Блог</h1>
         <div class="blog">
             @if(is_object($posts))
                 @foreach($posts as $post)

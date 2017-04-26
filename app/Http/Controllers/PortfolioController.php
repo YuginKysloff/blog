@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\Work;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePost as StorePostRequest;
 use App\Http\Requests\UpdatePost as UpdatePostRequest;
@@ -18,11 +18,11 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('owner')->published()->orderBy('updated_at', 'DESC')->paginate(5);
-        if(count($posts) == 0) {
-            $posts = 'Нет работ';
+        $works = Work::with('skills')->published()->orderBy('updated_at', 'DESC')->paginate(5);
+        if(count($works) == 0) {
+            $works = 'Нет работ';
         }
-        return view('portfolio.index', compact('posts'));
+        return view('portfolio.index', compact('works'));
     }
 //
 //    /**

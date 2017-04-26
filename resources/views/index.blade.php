@@ -7,7 +7,7 @@
         <h2 class="main-nav__h2">Front-end developer</h2>
 
         <a href="{{ route('list_posts') }}" class="main-nav__item">blog</a>
-        <a href="portfolio.html" class="main-nav__item">portfolio</a>
+        <a href="{{ route('list_works') }}" class="main-nav__item">portfolio</a>
         <a href="https://vk.com/reskwer" class="main-nav__item">
             <svg role="img" class="main-nav__item-icon">
                 <use xlink:href="#vk"></use>
